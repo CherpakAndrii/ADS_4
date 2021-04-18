@@ -7,7 +7,7 @@ namespace ADS_4
 {
     class Program
     {
-        static unsafe void Main()
+        static void Main()
         {
             DLL lst = GetList();
             DLL newLst = GetNewList(lst);
@@ -30,7 +30,7 @@ namespace ADS_4
             }
         }
 
-        static unsafe DLL GetList()
+        static DLL GetList()
         {
             DLL lst = new DLL();
             using (StreamReader sr = new StreamReader(Environment.CurrentDirectory + @"\txt.txt", System.Text.Encoding.Default))
@@ -41,30 +41,28 @@ namespace ADS_4
             return lst; 
         }
 
-        static unsafe DLL GetNewList(DLL inpList)
+        static DLL GetNewList(DLL inpList)
         {
-            DLL.Node* item = inpList.First;
-            double lastValue = inpList.Last->Value;
+            DLL.Node item = inpList.First;
+            double lastValue = inpList.Last.Value;
             DLL nLst = new DLL();
             for (int i = 0; i < inpList.get_size() - 2; i++)
             {
-                nLst.PushBack(item->Value-lastValue);
-                item = item->Next;
+                nLst.PushBack(item.Value-lastValue);
+                item = item.Next;
             }
-            nLst.PushBack(item->Value-lastValue);
+            nLst.PushBack(item.Value-lastValue);
             return nLst;
         }
-        static unsafe void ListToFile(DLL newList)
+        static void ListToFile(DLL newList)
         {
-            DLL.Node* node = newList.First;
+            DLL. Node node = newList.First;
             using (StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + @"\new.txt", false, Encoding.Default))
             {
-                Console.WriteLine(newList.get_size());
                 for (int i = 0; i < newList.get_size(); i++)
                 {
-                    sw.Write($"{node->Value} ");
-                    Console.Write($"{node->Value} ");
-                    node = node->Next;
+                    sw.Write($"{node.Value} ");
+                    node = node.Next;
                 }
             }
         } 
